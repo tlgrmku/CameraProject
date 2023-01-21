@@ -1,4 +1,4 @@
-'''Video recording after motion capture.'''
+'''Video recording after motion capture and send a message to telegram. Checks CPU temperature Raspberry Pi.'''
 import cv2
 import time
 from pyrogram import Client
