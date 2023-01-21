@@ -1,3 +1,4 @@
+'''Video recording after motion capture.'''
 import cv2
 import time
 from pyrogram import Client
