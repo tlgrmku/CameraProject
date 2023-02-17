@@ -23,6 +23,7 @@ detection = False
 detection_time = None
 timer_started = False
 second_after_rec = 15 # time after detect
+maxtemp = 0.0
 
 frame_size = (int(cap.get(3)), int(cap.get(4)))
 fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
@@ -30,7 +31,10 @@ fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 
 async def video_tg(name):
     temp = os.popen('vcgencmd measure_temp').readline()
-    caption_text = name + ' ' + temp
+    temp = float(temp.split('=')[1].split("'")[0])
+    if temp > maxtemp:
+        maxtemp = temp
+    caption_text = name + ' temp: ' + str(temp) + ' max temp: ' + str(maxtemp)
     await app.start()
     await app.send_chat_action(admin, enums.ChatAction.UPLOAD_VIDEO)
     await app.send_video(admin, f'{videodir}{name}.mp4', caption=caption_text, has_spoiler=True)
